@@ -1,0 +1,39 @@
+html {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+$font_size: 15pt;
+div{
+  text-align: center;
+}
+#bodyID{
+	height: 100vh;
+  font-size: $font_size;
+}
+#formID{
+  width: 50%;
+}
+#searchInp, #submit, #lbl{
+  font-size: $font_size;
+}
+
+#graphWeather{
+  height: 400px;
+  width: 50%;
+  margin: 300px auto;
+}
+#searchInp{
+	margin-left: 20px;
+}
+
+#placeID{
+  margin-bottom: 20px;
+  font-size: 17pt;
+  font-weight: bold;
+}
+
+#errorText{
+	white-space: pre;
+}
