@@ -38,6 +38,7 @@ function getWeather(cityName) {
         .fail(
             function (err) {
                 fillElements('',err.status + ' ' + err.statusText + '\r\n' + 'Details: ' + err.responseJSON.message,'','','','');
+                 addBackgroundColor();
             }
         )
 }
@@ -52,8 +53,10 @@ function addBackgroundColor(mode) {
             document.getElementById('bodyID').style.backgroundColor = '#FFFACD';
             return;
         }
-        default:
+        default:{
+            document.getElementById('bodyID').style.backgroundColor = '#ff0000';
             return;
+        }
     }
 }
 
