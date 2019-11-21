@@ -24,13 +24,15 @@ function processInp(event) {
         );
 }
 
-function fillElements(picSrc, error, place, weather, temperature, wind) {
-    document.getElementById('picID').src = picSrc;
-    document.getElementById('errorID').innerText = error;
-    document.getElementById('placeID').innerText = place;
-    document.getElementById('weatherID').innerText = weather;
-    document.getElementById('temperature').innerText = temperature;
-    document.getElementById('wind').innerText = wind;
+function fillElements(obj) {
+    document.getElementById('graphWeather').innerHTML = compiledFunction({
+        error: obj.error,
+        picSrc: obj.picSrc,
+        place: obj.place,
+        weather: obj.weather,
+        temperature: obj.temperature,
+        wind: obj.wind
+    });
 }
 
 function getWeather(cityName) {
