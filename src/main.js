@@ -56,8 +56,10 @@ function addBackgroundColor(mode) {
             document.getElementById('bodyID').style.backgroundColor = '#FFFACD';
             return;
         }
-        default:
+        default:{
+            document.getElementById('bodyID').style.backgroundColor = '#ff0000';
             return;
+        }
     }
 }
 
