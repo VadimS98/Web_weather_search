@@ -1,13 +1,27 @@
 import './style.scss'
 
+const compiledFunction = require('./template.pug');
 let APIkey = 'e787dd4d8c91f11c6945bb9985a6473e';
 let weather;
 
-document.getElementById('submit').onclick = processInp;
+document.getElementById('formID').addEventListener('submit', processInp);
 
-function processInp() {
-    let cityName = document.getElementById('searchInp').value;
-    getWeather(cityName);
+function processInp(event) {
+    event.preventDefault();
+    let city = event.target[0].value;
+    getWeather(city)
+        .done(
+            function (data) {
+                weather = data;
+                fillWeather(weather);
+                addBackgroundColor(data.weather[0].icon[2]);
+            }
+        )
+        .fail(
+            function (err) {
+                fillElements('',err.status + ' ' + err.statusText + '\r\n' + 'Details: ' + err.responseJSON.message,'','','','');
+            }
+        );
 }
 
 function fillElements(picSrc, error, place, weather, temperature, wind) {
@@ -20,7 +34,7 @@ function fillElements(picSrc, error, place, weather, temperature, wind) {
 }
 
 function getWeather(cityName) {
-    $.ajax({
+    return $.ajax({
         url: 'https://api.openweathermap.org/data/2.5/weather',
         dataType: 'json',
         data: {
@@ -28,18 +42,6 @@ function getWeather(cityName) {
             appid: APIkey
         }
     })
-        .done(
-            function (data) {
-                weather = data;
-                fillWeather(weather);
-                addBackgroundColor(data.weather[0].icon[2]);
-            }
-        )
-        .fail(
-            function (err) {
-                fillElements('',err.status + ' ' + err.statusText + '\r\n' + 'Details: ' + err.responseJSON.message,'','','','');
-            }
-        )
 }
 
 function addBackgroundColor(mode) {
