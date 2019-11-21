@@ -1,8 +1,7 @@
 import './style.scss'
 
 const compiledFunction = require('./template.pug');
-let APIkey = 'e787dd4d8c91f11c6945bb9985a6473e';
-let weather;
+const APIkey = 'e787dd4d8c91f11c6945bb9985a6473e';
 
 document.getElementById('formID').addEventListener('submit', processInp);
 
