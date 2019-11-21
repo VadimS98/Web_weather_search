@@ -12,14 +12,13 @@ function processInp(event) {
     getWeather(city)
         .done(
             function (data) {
-                weather = data;
-                fillWeather(weather);
+                fillWeather(data);
                 addBackgroundColor(data.weather[0].icon[2]);
             }
         )
         .fail(
             function (err) {
-                fillElements('',err.status + ' ' + err.statusText + '\r\n' + 'Details: ' + err.responseJSON.message,'','','','');
+                fillError(err)
             }
         );
 }
@@ -64,12 +63,25 @@ function addBackgroundColor(mode) {
 }
 
 function fillWeather(weather) {
-    fillElements(
-        'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png',
-        '',
-        weather.name + ', ' + weather.sys.country,
-        'Current weather: ' + weather.weather[0].main + ' ( ' + weather.weather[0].description + ' )',
-        'Temperature: ' + (weather.main.temp - 273.15).toFixed(0) + '°C',
-        'Wind: ' + weather.wind.speed + 'm/s'
-    );
+    fillElements({
+        picSrc: 'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png',
+        error: "",
+        place: weather.name + ', ' + weather.sys.country,
+        weather: 'Current weather: ' + weather.weather[0].main + ' ( ' + weather.weather[0].description + ' )',
+        temperature: 'Temperature: ' + (weather.main.temp - 273.15).toFixed(0) + '°C',
+        wind: 'Wind: ' + weather.wind.speed + 'm/s'
+    });
 }
+
+function fillError(error) {
+    fillElements({
+            picSrc: '',
+            error: error.status + ' ' + error.statusText + '\r\n' + 'Details: ' + error.responseJSON.message,
+            place: '',
+            weather: '',
+            temperature: '',
+            wind: ''
+        }
+    );
+};
+
